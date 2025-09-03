@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify App</title>
+  </head>
+  <body>
+    <div class="topnav">
+      <a href="/top">Top</a><a href="/create">Create</a
+      ><a href="/view">View</a>
+    </div>
+
+    <div class="content">
+      {% if template == 'top' %} {% if top_songs %}
+      <h1>Top Songs from Last.fm</h1>
+      <form action="" method="POST">
+        <table>
+          <tr>
+            <th>Song</th>
+            <th>Artist</th>
+          </tr>
+          {% for song, artist in top_songs.items() %}
+          <tr>
+            <td>{{song}}</td>
+            <td>{{artist}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        <br />
+        <input class="btn" type="submit" value="Add Songs" />
+      </form>
+      {% endif %} {% elif template == 'view' %}
+      <h2>Songs in Playlist:</h2>
+      <table>
+        <tr>
+          <th>Song</th>
+        </tr>
+        {% for song in songs %}
+        <tr>
+          <td>{{song}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      {% elif template == 'home' %}
+      <h1>Welcome to Spotify App</h1>
+      <p><a href="/top">View Top Songs</a></p>
+
+      {% elif template == 'create' %}
+      <form action="" method="POST">
+        <h1>Create A Playlist</h1>
+        <div class="inline">
+          <label class="label" for="">Playlist Name: </label>
+          <input type="text" name="playlist_name" />
+        </div>
+        <br />
+        <div class="inline">
+          <label class="label" for="">Description: </label>
+          <textarea cols="20" rows="3" name="playlist_desc"></textarea>
+        </div>
+        <br />
+        <input class="btn" type="submit" value="Create Playlist" />
+      </form>
+
+      {% else %}
+      <h1>Welcome to Spotify App</h1>
+      <p><a href="/create">Create Playlist</a></p>
+      {% endif %}
+    </div>
+  </body>
+</html>
